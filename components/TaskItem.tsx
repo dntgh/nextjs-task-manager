@@ -39,6 +39,12 @@ export default function TaskItem({ task, onToggle, onDelete, onUpdate }: TaskIte
     }
   };
 
+  const handleDelete = () => {
+    if (window.confirm("Are you sure you want to delete this task?")) {
+      onDelete(task.id);
+    }
+  };
+
   return (
     <li className="flex items-center justify-between p-4 bg-zinc-50 dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors">
       <div className="flex items-center gap-3 flex-1">
@@ -93,7 +99,7 @@ export default function TaskItem({ task, onToggle, onDelete, onUpdate }: TaskIte
           </button>
         )}
         <button
-          onClick={() => onDelete(task.id)}
+          onClick={handleDelete}
           className="px-3 py-1 text-sm text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 transition-colors rounded hover:bg-red-50 dark:hover:bg-red-900/20"
         >
           Delete
