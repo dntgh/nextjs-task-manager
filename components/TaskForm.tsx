@@ -21,18 +21,28 @@ export default function TaskForm({ onAddTask }: TaskFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-3">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row">
       <input
         type="text"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder="Enter a new task..."
-        className="flex-1 px-4 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-black dark:text-zinc-50 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+        placeholder="Add a focused task..."
+        className="min-h-12 flex-1 rounded-xl border border-zinc-200 bg-white px-4 text-base text-zinc-950 shadow-sm shadow-zinc-100 outline-none transition placeholder:text-zinc-400 focus:border-blue-300 focus:ring-4 focus:ring-blue-100"
       />
       <button
         type="submit"
-        className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-black"
+        className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 font-semibold text-white shadow-md shadow-blue-600/20 transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-100"
       >
+        <svg
+          aria-hidden="true"
+          className="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v14m7-7H5" />
+        </svg>
         Add Task
       </button>
     </form>

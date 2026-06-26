@@ -12,6 +12,9 @@ interface Task {
 
 export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const completedTasks = tasks.filter((task) => task.completed).length;
+  const progressValue =
+    tasks.length === 0 ? 0 : Math.round((completedTasks / tasks.length) * 100);
 
   const addTask = (title: string) => {
     const newTask: Task = {
@@ -46,19 +49,46 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black min-h-screen">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-center py-32 px-16 bg-white dark:bg-black">
-        <div className="flex flex-col items-center gap-8 text-center w-full">
-          <h1 className="text-4xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50/50 to-zinc-100 px-4 py-10 font-sans text-zinc-950">
+      <main className="w-full max-w-3xl rounded-3xl border border-white/80 bg-white px-5 py-8 shadow-xl shadow-zinc-200/70 sm:px-8 md:px-12">
+        <div className="flex w-full flex-col gap-8">
+          <div className="space-y-3 text-center">
+            <p className="text-sm font-medium uppercase tracking-[0.18em] text-blue-600">
+              Productivity dashboard
+            </p>
+            <h1 className="text-4xl font-semibold leading-tight tracking-tight text-zinc-950">
             Task Manager
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Manage your tasks efficiently with this simple task manager.
-          </p>
-          <div className="w-full max-w-xl">
+            </h1>
+            <p className="mx-auto max-w-md text-base leading-7 text-zinc-500">
+              Organize, refine, and complete your priorities with a focused task list.
+            </p>
+          </div>
+
+          <div className="w-full">
             <TaskForm onAddTask={addTask} />
           </div>
-          <div className="w-full max-w-xl mt-8">
+
+          <section className="flex flex-col gap-4 rounded-2xl border border-zinc-100 bg-zinc-50/80 p-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="min-w-0">
+              <p className="text-sm font-medium text-zinc-500">Progress</p>
+              <p className="text-lg font-semibold text-zinc-900">
+                {completedTasks} of {tasks.length} completed
+              </p>
+            </div>
+            <div className="flex w-full items-center gap-3 sm:max-w-xs">
+              <div className="h-3 flex-1 overflow-hidden rounded-full bg-zinc-200">
+                <div
+                  className="h-full rounded-full bg-blue-600 transition-all duration-300 ease-out"
+                  style={{ width: `${progressValue}%` }}
+                />
+              </div>
+              <span className="w-10 text-right text-sm font-semibold text-zinc-500">
+                {progressValue}%
+              </span>
+            </div>
+          </section>
+
+          <div className="w-full">
             <TaskList
               tasks={tasks}
               onToggle={handleToggle}
