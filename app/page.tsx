@@ -10,11 +10,20 @@ interface Task {
   completed: boolean;
 }
 
+type FilterType = 'all' | 'active' | 'completed';
+
 export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [filter, setFilter] = useState<FilterType>('all');
   const completedTasks = tasks.filter((task) => task.completed).length;
   const progressValue =
     tasks.length === 0 ? 0 : Math.round((completedTasks / tasks.length) * 100);
+
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === 'active') return !task.completed;
+    if (filter === 'completed') return task.completed;
+    return true;
+  });
 
   const addTask = (title: string) => {
     const newTask: Task = {
@@ -68,6 +77,41 @@ export default function Home() {
             <TaskForm onAddTask={addTask} />
           </div>
 
+          <div className="w-full">
+            <div className="flex gap-2 rounded-xl border border-zinc-200 bg-zinc-50/50 p-1">
+              <button
+                onClick={() => setFilter('all')}
+                className={`flex-1 rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                  filter === 'all'
+                    ? 'bg-white text-blue-600 shadow-sm'
+                    : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900'
+                }`}
+              >
+                All
+              </button>
+              <button
+                onClick={() => setFilter('active')}
+                className={`flex-1 rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                  filter === 'active'
+                    ? 'bg-white text-blue-600 shadow-sm'
+                    : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900'
+                }`}
+              >
+                Active
+              </button>
+              <button
+                onClick={() => setFilter('completed')}
+                className={`flex-1 rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                  filter === 'completed'
+                    ? 'bg-white text-blue-600 shadow-sm'
+                    : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900'
+                }`}
+              >
+                Completed
+              </button>
+            </div>
+          </div>
+
           <section className="flex flex-col gap-4 rounded-2xl border border-zinc-100 bg-zinc-50/80 p-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="min-w-0">
               <p className="text-sm font-medium text-zinc-500">Progress</p>
@@ -90,7 +134,7 @@ export default function Home() {
 
           <div className="w-full">
             <TaskList
-              tasks={tasks}
+              tasks={filteredTasks}
               onToggle={handleToggle}
               onDelete={deleteTask}
               onUpdate={handleUpdate}
