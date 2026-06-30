@@ -80,7 +80,8 @@ export default function TaskItem({
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const dueDate = new Date(task.dueDate);
+    const [year, month, day] = task.dueDate.split('-').map(Number);
+    const dueDate = new Date(year, month - 1, day);
     dueDate.setHours(0, 0, 0, 0);
 
     const diffTime = dueDate.getTime() - today.getTime();
@@ -99,7 +100,8 @@ export default function TaskItem({
     if (!task.dueDate || task.completed) return false;
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const dueDate = new Date(task.dueDate);
+    const [year, month, day] = task.dueDate.split('-').map(Number);
+    const dueDate = new Date(year, month - 1, day);
     dueDate.setHours(0, 0, 0, 0);
     return dueDate < today;
   };
