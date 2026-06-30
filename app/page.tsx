@@ -6,6 +6,7 @@ import TaskForm from "@/components/TaskForm";
 import TaskList from "@/components/TaskList";
 import ThemeToggle from "@/components/ThemeToggle";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import useDebounce from "@/hooks/useDebounce";
 
 interface Task {
   id: string;
@@ -22,6 +23,7 @@ export default function Home() {
   const [tasks, setTasks] = useLocalStorage<Task[]>('tasks', []);
   const [filter, setFilter] = useState<FilterType>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const debouncedSearchQuery = useDebounce(searchQuery, 300);
   const completedTasks = tasks.filter((task) => task.completed).length;
   const progressValue =
     tasks.length === 0 ? 0 : Math.round((completedTasks / tasks.length) * 100);
@@ -34,8 +36,8 @@ export default function Home() {
     };
 
     const matchesSearch = () => {
-      if (!searchQuery.trim()) return true;
-      return task.title.toLowerCase().includes(searchQuery.toLowerCase());
+      if (!debouncedSearchQuery.trim()) return true;
+      return task.title.toLowerCase().includes(debouncedSearchQuery.toLowerCase());
     };
 
     return matchesFilter() && matchesSearch();

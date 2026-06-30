@@ -68,7 +68,7 @@ export default function TaskItem({
       low: 'Low',
     };
     return (
-      <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${badges[task.priority]}`}>
+      <span className={`inline-flex shrink-0 items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${badges[task.priority]}`}>
         {labels[task.priority]}
       </span>
     );
@@ -104,13 +104,13 @@ export default function TaskItem({
   };
 
   return (
-    <li className="flex items-center justify-between gap-4 rounded-xl border border-zinc-100 bg-white px-4 py-4 shadow-sm shadow-zinc-100 transition hover:border-zinc-200 hover:shadow-md hover:shadow-zinc-100 dark:border-zinc-800 dark:bg-zinc-950 dark:shadow-zinc-950/30 dark:hover:border-zinc-700 dark:hover:shadow-zinc-950/40">
-      <div className="flex min-w-0 flex-1 items-center gap-4">
+    <div className="flex items-start justify-between gap-4 rounded-xl border border-zinc-100 bg-white px-4 py-4 shadow-sm shadow-zinc-100 transition hover:border-zinc-200 hover:shadow-md hover:shadow-zinc-100 dark:border-zinc-800 dark:bg-zinc-950 dark:shadow-zinc-950/30 dark:hover:border-zinc-700 dark:hover:shadow-zinc-950/40">
+      <div className="flex min-w-0 flex-1 items-start gap-4">
         <button
           type="button"
           onClick={() => onToggle(task.id)}
           aria-label={task.completed ? "Mark task as incomplete" : "Mark task as complete"}
-          className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition focus:outline-none focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-500/20 ${
+          className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 dark:focus:ring-blue-400 dark:focus:ring-offset-zinc-950 ${
             task.completed
               ? "border-blue-600 bg-blue-600 text-white dark:border-blue-400 dark:bg-blue-500"
               : "border-zinc-300 bg-white text-transparent hover:border-blue-500 dark:border-zinc-600 dark:bg-zinc-900 dark:hover:border-blue-400"
@@ -135,14 +135,15 @@ export default function TaskItem({
               value={editTitle}
               onChange={(e) => setEditTitle(e.target.value)}
               onKeyDown={handleKeyDown}
-              className="min-h-10 min-w-0 flex-1 rounded-lg border border-zinc-200 bg-white px-3 text-zinc-950 outline-none transition focus:border-blue-300 focus:ring-4 focus:ring-blue-100 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50 dark:focus:border-blue-400 dark:focus:ring-blue-500/20"
+              maxLength={100}
+              className="min-h-10 min-w-0 flex-1 rounded-lg border border-zinc-200 bg-white px-3 text-zinc-950 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50 dark:focus:border-blue-400 dark:focus:ring-blue-400/30"
               autoFocus
             />
             <div className="flex gap-2">
               <select
                 value={editPriority}
                 onChange={(e) => setEditPriority(e.target.value as 'high' | 'medium' | 'low')}
-                className="min-h-10 flex-1 rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-950 outline-none transition focus:border-blue-300 focus:ring-4 focus:ring-blue-100 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50 dark:focus:border-blue-400 dark:focus:ring-blue-500/20"
+                className="min-h-10 flex-1 rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-950 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50 dark:focus:border-blue-400 dark:focus:ring-blue-400/30"
               >
                 <option value="high">High Priority</option>
                 <option value="medium">Medium Priority</option>
@@ -152,19 +153,19 @@ export default function TaskItem({
                 type="date"
                 value={editDueDate}
                 onChange={(e) => setEditDueDate(e.target.value)}
-                className="min-h-10 flex-1 rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-950 outline-none transition focus:border-blue-300 focus:ring-4 focus:ring-blue-100 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50 dark:focus:border-blue-400 dark:focus:ring-blue-500/20"
+                className="min-h-10 flex-1 rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-950 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50 dark:focus:border-blue-400 dark:focus:ring-blue-400/30"
               />
             </div>
             <div className="flex gap-2">
               <button
                 onClick={handleSave}
-                className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-100 dark:bg-blue-500 dark:hover:bg-blue-400 dark:focus:ring-blue-500/20"
+                className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 dark:bg-blue-500 dark:hover:bg-blue-400 dark:focus:ring-blue-400 dark:focus:ring-offset-zinc-900"
               >
                 Save
               </button>
               <button
                 onClick={handleCancel}
-                className="rounded-lg bg-zinc-100 px-4 py-2 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-200 focus:outline-none focus:ring-4 focus:ring-zinc-100 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700 dark:focus:ring-zinc-700/40"
+                className="rounded-lg bg-zinc-100 px-4 py-2 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-200 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-1 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700 dark:focus:ring-zinc-500 dark:focus:ring-offset-zinc-900"
               >
                 Cancel
               </button>
@@ -172,9 +173,9 @@ export default function TaskItem({
           </div>
         ) : (
           <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-            <div className="flex items-center gap-2">
+            <div className="flex min-w-0 flex-wrap items-center gap-2">
               <span
-                className={`min-w-0 flex-1 truncate text-left text-base font-medium transition ${
+                className={`min-w-0 break-words break-all text-left text-base font-medium transition ${
                   task.completed
                     ? "text-zinc-400 line-through decoration-zinc-300 dark:text-zinc-500 dark:decoration-zinc-600"
                     : "text-zinc-900 dark:text-zinc-100"
@@ -199,7 +200,7 @@ export default function TaskItem({
             type="button"
             onClick={() => setIsEditing(true)}
             aria-label="Edit task"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-zinc-400 transition hover:bg-blue-50 hover:text-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-100 dark:text-zinc-500 dark:hover:bg-blue-500/10 dark:hover:text-blue-300 dark:focus:ring-blue-500/20"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-zinc-400 transition hover:bg-blue-50 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 dark:text-zinc-500 dark:hover:bg-blue-500/10 dark:hover:text-blue-300 dark:focus:ring-blue-400 dark:focus:ring-offset-zinc-950"
           >
             <svg
               aria-hidden="true"
@@ -221,7 +222,7 @@ export default function TaskItem({
           type="button"
           onClick={() => setIsDeleteModalOpen(true)}
           aria-label="Delete task"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full text-zinc-400 transition hover:bg-red-50 hover:text-red-600 focus:outline-none focus:ring-4 focus:ring-red-100 dark:text-zinc-500 dark:hover:bg-red-500/10 dark:hover:text-red-300 dark:focus:ring-red-500/20"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full text-zinc-400 transition hover:bg-red-50 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1 dark:text-zinc-500 dark:hover:bg-red-500/10 dark:hover:text-red-300 dark:focus:ring-red-400 dark:focus:ring-offset-zinc-950"
         >
           <svg
             aria-hidden="true"
@@ -277,14 +278,14 @@ export default function TaskItem({
               <button
                 type="button"
                 onClick={() => setIsDeleteModalOpen(false)}
-                className="rounded-xl bg-zinc-100 px-4 py-3 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-200 focus:outline-none focus:ring-4 focus:ring-zinc-100 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700 dark:focus:ring-zinc-700/40"
+                className="rounded-xl bg-zinc-100 px-4 py-3 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-200 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-1 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700 dark:focus:ring-zinc-500 dark:focus:ring-offset-zinc-900"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={handleDelete}
-                className="rounded-xl bg-red-600 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-red-600/20 transition hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-100 dark:bg-red-500 dark:shadow-red-950/30 dark:hover:bg-red-400 dark:focus:ring-red-500/20"
+                className="rounded-xl bg-red-600 px-4 py-3 text-sm font-semibold text-white shadow-md shadow-red-600/20 transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1 dark:bg-red-500 dark:shadow-red-950/30 dark:hover:bg-red-400 dark:focus:ring-red-400 dark:focus:ring-offset-zinc-900"
               >
                 Delete
               </button>
@@ -292,6 +293,6 @@ export default function TaskItem({
           </div>
         </div>
       )}
-    </li>
+    </div>
   );
 }
