@@ -123,9 +123,11 @@ export default function FaqViewer() {
                   : "text-zinc-600 hover:bg-zinc-50 dark:text-zinc-400 dark:hover:bg-zinc-800/40"
               }`}
             >
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-              </svg>
+              <div className="w-5 h-5 flex items-center justify-center shrink-0">
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                </svg>
+              </div>
               All Categories
             </button>
 
@@ -143,7 +145,9 @@ export default function FaqViewer() {
                     : "text-zinc-600 hover:bg-zinc-50 dark:text-zinc-400 dark:hover:bg-zinc-800/40"
                 }`}
               >
-                {getIcon(category.icon, "w-5 h-5")}
+                <div className="w-5 h-5 flex items-center justify-center shrink-0">
+                  {getIcon(category.icon, "w-5 h-5")}
+                </div>
                 <span>{category.name}</span>
               </button>
             ))}
@@ -257,7 +261,7 @@ export default function FaqViewer() {
               No technical Q&As found
             </h3>
             <p className="mt-1 max-w-sm text-sm text-zinc-500 dark:text-zinc-400">
-              We couldn't find any answers matching &ldquo;{searchQuery}&rdquo;. Try using different terms or resetting the category filter.
+              We could not find any answers matching &ldquo;{searchQuery}&rdquo;. Try using different terms or resetting the category filter.
             </p>
             <button
               onClick={() => {
