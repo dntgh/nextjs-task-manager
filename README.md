@@ -45,7 +45,7 @@ Get the project up and running locally by following these steps:
 1.  **Clone the Repository**:
     ```bash
     git clone https://github.com/dtdev-hub/dtd-ppvc-01-nextjs-task-manager.git
-    cd task-manager
+    cd dtd-ppvc-01-nextjs-task-manager
     ```
 
 2.  **Install Dependencies**:
